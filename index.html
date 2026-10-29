@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>astral's space (meow)</title>
+    <script>
+        const start = 1370390400;
+        const yay = 1812153600;
+        function updatetime() {
+            const now = Date.now() / 1000;
+            const thing = document.getElementById("realitybegin")
+            if (thing) {
+                thing.innerText = ((now - start) / 86400).toFixed(7);
+            }
+            const thing2 = document.getElementById("yaysies")
+            if (thing2) {
+                if (yay - now < 0) {
+                    thing2.innerText = "RIGHT FUCKING NOW!!!!!!!! AAAAAAAAAAA";
+                } else {
+                thing2.innerText = `in ${((yay - now) / 86400).toFixed(0)} days`;
+                }
+            }
+            requestAnimationFrame(updatetime);
+        }
+        updatetime();
+    </script>
+</head>
+<body>
+    <img id="thebottomleftcorner" src="/assets/corner.png" aria-hidden="true">
+    <canvas id="particeles"><script>
+        let particles = [];
+        const canvas = document.getElementById('particeles');
+        const ctx = canvas.getContext("2d");
+        let laststar = 0;
+        function ilerp(x, y, value) {
+            return (value - x) / (y - x);
+        }
+        function lerp(x, y, value) {
+            return x + value * (y - x);
+        }
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener("resize", resize)
+        resize();
+        function stars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const now = Date.now();
+            if (now > (laststar + 40)) {
+                particles.push([Math.random(), Math.random() * 0.7 + 0.3, now, now+(Math.random() * 2 + 2.4)*1000, false])
+                laststar = now + 40;
+            }
+            particles.forEach((thing) => {
+                const progress = ilerp(thing[2], thing[3], now)
+                if (progress >= 1) {
+                    thing[4] = true;
+                }
+                const opacity = progress * -0.5 + 0.5;
+                const position = lerp(canvas.height, 100, progress);
+                ctx.beginPath();
+                ctx.arc(canvas.width*thing[0], position, 4, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${opacity}`;
+                ctx.fill();
+            })
+            particles = particles.filter(thing => !thing[4]);
+            requestAnimationFrame(stars);
+        }
+        stars();
+    </script></canvas>
+    <div id="content">
+        <div id="contentinner">
+            <h1>hi!!!</h1>
+            <p>in one way or another, you somehow ended up in my corner of the internet :3</p>
+            <p>(she/her/they/them)</p>
+            <hr>
+            <h2>who is astral?</h2>
+            <p>
+                uhm.. uhuh.... she's a girl i think<br>
+                yeah that probably or something meow-<br>
+                her reality began <span id="realitybegin" aria-hidden="true">...</span> days ago
+            </p>
+            <h2>where is astral?</h2>
+            <p>
+                somewhere in thailand<br>
+                mmmmm,,,,, yes,,,, thighland,,,,, ok bad joke im so sorry-
+            </p>
+            <h2>how is astral?</h2>
+            <p>
+                the happiest she's ever been honestly!!<br>
+                eligible for hrt: <span id="yaysies">...</span><br>
+                :3 >:3 :3c 3:<br>
+            </p>
+            <hr>
+            <h2>things i like playing yay-</h2>
+            <ol start="-1">
+                <li>chunithm (yea i go to MBK)</li>
+                <li>maimai でらっくす</li>
+                <li>phigros</li>
+                <li>project sekai</li>
+                <li>sound voltex</li>
+                <li>roblox (yes i know this is extremely broad but I AM NOT TELLING YOU WHICH GAMES I PLAY ON ROBLOX)</li>
+                <li>minceraft</li>
+            </ol>
+            <h2>where (3 * 4) / 6 + (5 - 4) find me</h2>
+            <p>
+                discord: astralium5<br>
+                <a href="https://roblox.com/users/3026436436/profile">roblox: astralium5</a><br>
+                <br>
+                that's it? wow...
+            </p>
+            <hr>
+            <p>yea im new to webrings and those 88x31 buttons stuff.. pls be nice!!! &lt;3</p>
+            <div id="thebuttons">
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
