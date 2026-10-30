@@ -64,6 +64,11 @@ body {
     gap: 20px;
 }
 
+#leave {
+    width: 40%;
+    border: solid 2px rgb(240, 180, 255);
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
 }
